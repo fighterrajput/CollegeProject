@@ -127,7 +127,7 @@
 					<th>Edit</th>
 				</tr>
 
-				<%
+			 	<%
 					while (it.hasNext()) {
 							bean = it.next();
 							RoleModel model = new RoleModel();

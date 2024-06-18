@@ -78,7 +78,6 @@
         <a href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</b></a> |
         <a href="<%=ORSView.ROLE_CTL%>">Add Role</b></a> |        
         <a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</b></a> |
-        <br>
         <a href="<%=ORSView.STUDENT_CTL%>">Add Student</b></a> |
         <a href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</b></a> |
         <a href="<%=ORSView.COURSE_CTL %>" >Add Course</b></a> |       

@@ -22,7 +22,6 @@ import com.rays.pro4.Util.ServletUtility;
  * @author Ankit Rajput
  *
  */
-
 public abstract class BaseCtl extends HttpServlet {
 
 	public static final String OP_SAVE = "Save";

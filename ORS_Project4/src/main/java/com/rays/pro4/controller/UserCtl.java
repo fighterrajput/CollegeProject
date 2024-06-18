@@ -235,6 +235,7 @@ public class UserCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("uctl Do Post");
+		System.out.println("hlw dharam");
 
 		log.debug("UserCtl Method doPost Started");
 
