@@ -20,7 +20,7 @@
         welcomeMsg += "Guest";
     }
 	%>
-	<a href="#">Test</a>
+	<!-- <a href="#">Test</a> -->
 
 <table >
     <tr ><th></th>
