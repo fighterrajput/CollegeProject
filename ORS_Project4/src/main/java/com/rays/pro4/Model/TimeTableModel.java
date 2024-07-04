@@ -35,7 +35,7 @@ public class TimeTableModel {
 		int pk = 0;
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(ID) FROM ST_TIMETABLE");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(ID) FROM st_timetable");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
@@ -121,7 +121,7 @@ public class TimeTableModel {
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("delete from ST_timetable where ID=?");
+			PreparedStatement pstmt = conn.prepareStatement("delete from st_timetable where ID=?");
 			pstmt.setLong(1, bean.getId());
 			int i = pstmt.executeUpdate();
 			System.out.println("record delete " + i);
@@ -165,7 +165,7 @@ public class TimeTableModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update ST_timetable set course_id=?,course_name=?,subject_id=?,subject_name=?,semester=?,exam_date=?,exam_time=?,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where ID=?");
+					"update st_timetable set course_id=?,course_name=?,subject_id=?,subject_name=?,semester=?,exam_date=?,exam_time=?,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where ID=?");
 
 			pstmt.setLong(1, bean.getCourseId());
 			pstmt.setString(2, bean.getCourseName());
@@ -202,7 +202,7 @@ public class TimeTableModel {
 
 	public TimeTableBean findByPK(long pk) throws ApplicationException {
 		log.debug("Model findBypk started");
-		StringBuffer sql = new StringBuffer("select * from ST_timetable where id=?");
+		StringBuffer sql = new StringBuffer("select * from st_timetable where id=?");
 		TimeTableBean bean = null;
 		Connection conn = null;
 		try {
@@ -244,7 +244,7 @@ public class TimeTableModel {
 	public List list(int pageNo, int pageSize) throws Exception {
 		log.debug("model list Started");
 		ArrayList list = new ArrayList();
-		StringBuffer sql = new StringBuffer("select * from ST_timetable");
+		StringBuffer sql = new StringBuffer("select * from st_timetable");
 
 		if (pageNo > 0) {
 			pageNo = (pageNo - 1) * pageSize;
@@ -295,7 +295,7 @@ public class TimeTableModel {
 
 	public List search(TimeTableBean bean, int pageNo, int pageSize) throws ApplicationException {
 		log.debug("Model search started");
-		StringBuffer sql = new StringBuffer("select * from ST_timetable where 1=1 ");
+		StringBuffer sql = new StringBuffer("select * from st_timetable where 1=1 ");
 		if (bean != null) {
 			if (bean.getId() > 0) {
 				sql.append("AND id =" + bean.getId());
@@ -369,7 +369,7 @@ public class TimeTableModel {
 		Connection conn = null;
 		TimeTableBean bean = null;
 		StringBuffer sql = new StringBuffer(
-				"SELECT * FROM ST_TIMETABLE WHERE Course_ID=? AND Subject_ID=? AND Semester=?");
+				"SELECT * FROM st_timetable WHERE Course_ID=? AND Subject_ID=? AND Semester=?");
 
 		try {
 			Connection con = JDBCDataSource.getConnection();
@@ -408,7 +408,7 @@ public class TimeTableModel {
 
 	public TimeTableBean checkBycds(long CourseId, String Semester, Date ExamDate) throws ApplicationException {
 		StringBuffer sql = new StringBuffer(
-				"SELECT * FROM ST_TIMETABLE WHERE Course_Id=? AND semester=? AND Exam_Date=?");
+				"SELECT * FROM st_timetable WHERE Course_Id=? AND semester=? AND Exam_Date=?");
 
 		Connection conn = null;
 		TimeTableBean bean = null;

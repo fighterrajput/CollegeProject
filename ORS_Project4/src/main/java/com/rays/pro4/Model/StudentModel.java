@@ -33,7 +33,7 @@ public class StudentModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select max(ID) FROM ST_STUDENT");
+			PreparedStatement pstmt = conn.prepareStatement("select max(ID) FROM st_student");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
@@ -75,7 +75,7 @@ public class StudentModel {
 
 			System.out.println(pk + " in ModelJDBC");
 			conn.setAutoCommit(false); // Begin transaction
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ST_STUDENT VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO st_student VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, pk);
 			pstmt.setLong(2, bean.getCollegeId());
 			pstmt.setString(3, bean.getCollegeName());
@@ -117,7 +117,7 @@ public class StudentModel {
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ST_STUDENT WHERE ID=?");
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM st_student WHERE ID=?");
 			pstmt.setLong(1, bean.getId());
 			pstmt.executeUpdate();
 			conn.commit();
@@ -138,7 +138,7 @@ public class StudentModel {
 
 	public StudentBean findByEmailId(String Email) throws ApplicationException {
 		log.debug("Model findBy Email Started");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_STUDENT WHERE EMAIL_id=?");
+		StringBuffer sql = new StringBuffer("SELECT * FROM st_student WHERE EMAIL_id=?");
 		StudentBean bean = null;
 		Connection conn = null;
 		try {
@@ -176,7 +176,7 @@ public class StudentModel {
 
 	public StudentBean findByPK(long pk) throws ApplicationException {
 		log.debug("Model findByPK Started");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_STUDENT WHERE ID=?");
+		StringBuffer sql = new StringBuffer("SELECT * FROM st_student WHERE ID=?");
 		StudentBean bean = null;
 		Connection conn = null;
 		try {
@@ -227,7 +227,7 @@ public class StudentModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE ST_STUDENT SET COLLEGE_ID=?,COLLEGE_NAME=?,FIRST_NAME=?,LAST_NAME=?,DATE_OF_BIRTH=?,MOBILE_NO=?,EMAIL_ID=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
+					"UPDATE st_student SET COLLEGE_ID=?,COLLEGE_NAME=?,FIRST_NAME=?,LAST_NAME=?,DATE_OF_BIRTH=?,MOBILE_NO=?,EMAIL_ID=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
 
 			pstmt.setLong(1, bean.getCollegeId());
 			pstmt.setString(2, bean.getCollegeName());
@@ -267,7 +267,7 @@ public class StudentModel {
 
 	public List search(StudentBean bean, int pageNo, int pageSize) throws ApplicationException {
 		log.debug("Model search Started");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_STUDENT WHERE 1=1");
+		StringBuffer sql = new StringBuffer("SELECT * FROM st_student WHERE 1=1");
 
 		if (bean != null) {
 			if (bean.getId() > 0) {
@@ -349,7 +349,7 @@ public class StudentModel {
 	public List list(int pageNo, int pageSize) throws ApplicationException {
 		log.debug("Model list Started");
 		ArrayList list = new ArrayList();
-		StringBuffer sql = new StringBuffer("select * from ST_STUDENT");
+		StringBuffer sql = new StringBuffer("select * from st_student");
 
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;

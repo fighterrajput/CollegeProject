@@ -55,7 +55,7 @@ public class DataUtility {
 			return "";
 		}
 	}
-
+	
 	/**
 	 * Converts String into Integer
 	 *
@@ -170,6 +170,14 @@ public class DataUtility {
 			return 0;
 		}
 	}
+	
+	public static Double getDouble(String val) {
+        if (DataValidator.isDouble(val)) {
+            return Double.parseDouble(val);
+        } else {
+            return null;
+        }
+    }
 
 	public static void main(String[] args) {
 		System.out.println(getInt("124"));

@@ -30,7 +30,7 @@ public class CollegeModel {
 		int pk = 0;
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(ID) FROM ST_COLLEGE");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(ID) FROM st_college");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
@@ -61,7 +61,7 @@ public class CollegeModel {
 			conn = JDBCDataSource.getConnection();
 			pk = nextPK();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ST_COLLEGE VALUES(?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO st_college VALUES(?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, pk);
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getAddress());
@@ -97,7 +97,7 @@ public class CollegeModel {
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ST_COLLEGE WHERE ID=?");
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM st_college WHERE ID=?");
 			pstmt.setLong(1, bean.getId());
 			pstmt.executeUpdate();
 			conn.commit();
@@ -118,7 +118,7 @@ public class CollegeModel {
 
 	public CollegeBean findByName(String name) throws ApplicationException {
 		log.debug("Model findByName Started");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_COLLEGE WHERE NAME=?");
+		StringBuffer sql = new StringBuffer("SELECT * FROM st_college WHERE NAME=?");
 		CollegeBean bean = null;
 		Connection conn = null;
 		try {
@@ -155,7 +155,7 @@ public class CollegeModel {
 
 	public CollegeBean findByPK(long pk) throws ApplicationException {
 		log.debug("Model Find BY Pk Stsrted");
-		StringBuffer sql = new StringBuffer("SELECT*FROM ST_COLLEGE WHERE id=?");
+		StringBuffer sql = new StringBuffer("SELECT*FROM st_college WHERE id=?");
 		CollegeBean bean = null;
 		Connection conn = null;
 		try {
@@ -205,7 +205,7 @@ public class CollegeModel {
 
 			conn.setAutoCommit(false); // Begin transaction
 			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE ST_COLLEGE SET NAME=?,ADDRESS=?,STATE=?,CITY=?,PHONE_NO=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
+					"UPDATE st_college SET NAME=?,ADDRESS=?,STATE=?,CITY=?,PHONE_NO=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getAddress());
 			pstmt.setString(3, bean.getState());
@@ -239,7 +239,7 @@ public class CollegeModel {
 
 	public List search(CollegeBean bean, int pageNo, int PageSize) throws ApplicationException {
 		log.debug("model search Started");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_COLLEGE WHERE 1=1");
+		StringBuffer sql = new StringBuffer("SELECT * FROM st_college WHERE 1=1");
 
 		if (bean != null) {
 			if (bean.getId() > 0) {
@@ -309,7 +309,7 @@ public class CollegeModel {
 	public List list(int pageNo, int pageSize) throws ApplicationException {
 		log.debug("Model list Started");
 		ArrayList list = new ArrayList();
-		StringBuffer sql = new StringBuffer("select * from ST_COLLEGE");
+		StringBuffer sql = new StringBuffer("select * from st_college");
 		// if page size is greater than zero then apply pagination
 		if (pageSize > 0) {
 			// Calculate start record index

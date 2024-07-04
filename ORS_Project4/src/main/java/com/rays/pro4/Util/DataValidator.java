@@ -17,6 +17,18 @@ public class DataValidator {
 			return false ;
 		}
 	}
+	
+	 public static boolean isDouble(String val) {
+		    if (val == null || val.isEmpty()) {
+		        return false;
+		    }
+		    try {
+		        Double.parseDouble(val);
+		        return true;
+		    } catch (NumberFormatException e) {
+		        return false;
+		    }
+		}
 	public static boolean isNotNull(String val){
 		return !isNull(val);
 		
@@ -202,7 +214,13 @@ public class DataValidator {
 						}	
 	    		}
 	 
-	
+	 public static boolean isTooLong(String val, int maxLength) {
+		    if (isNotNull(val)) {
+		        return val.length() > maxLength;
+		    } else {
+		        return false;
+		    }
+	 }
 	public static void main(String[] args) {
 		System.out.println("Not Null 2"+isNotNull("ABC"));
 		System.out.println("Not Null 3"+isNotNull(null));
