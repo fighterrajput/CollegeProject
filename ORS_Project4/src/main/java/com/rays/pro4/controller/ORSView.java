@@ -61,6 +61,12 @@ public interface ORSView {
 	public String SUPPORT_VIEW = PAGE_FOLDER + "/SupportView.jsp";
 	public String SUPPORT_LIST_VIEW = PAGE_FOLDER + "/SupportListView.jsp";
 
+	public String WISHLIST_VIEW = PAGE_FOLDER + "/WishListView.jsp";
+	public String WISHLIST_LIST_VIEW = PAGE_FOLDER + "/WishListListView.jsp";
+
+	public String VEHICLE_VIEW = PAGE_FOLDER + "/VehicleView.jsp";
+	public String VEHICLE_LIST_VIEW = PAGE_FOLDER + "/VehicleListView.jsp";
+
 	// public String ERROR_VIEW5 = PAGE_FOLDER + "/ErrorView5.jsp";
 
 	public String MARKSHEET_CTL = APP_CONTEXT + "/ctl/MarksheetCtl";
@@ -108,6 +114,12 @@ public interface ORSView {
 
 	public String SUPPORT_CTL = APP_CONTEXT + "/ctl/SupportCtl";
 	public String SUPPORT_LIST_CTL = APP_CONTEXT + "/ctl/SupportListCtl";
+
+	public String WISHLIST_CTL = APP_CONTEXT + "/ctl/WishListCtl";
+	public String WISHLIST_LIST_CTL = APP_CONTEXT + "/ctl/WishListListCtl";
+
+	public String VEHICLE_CTL = APP_CONTEXT + "/ctl/VehicleCtl";
+	public String VEHICLE_LIST_CTL = APP_CONTEXT + "/ctl/VehicleListCtl";
 
 	public String PRODUCT_CTL = APP_CONTEXT + "/ctl/ProductCtl";
 	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ctl/ProductListCtl";

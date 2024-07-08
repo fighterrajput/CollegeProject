@@ -9,27 +9,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rays.pro4.Bean.BaseBean;
-import com.rays.pro4.Bean.SalaryBean;
+import com.rays.pro4.Bean.VehicleBean;
 import com.rays.pro4.Exception.ApplicationException;
 import com.rays.pro4.Exception.DuplicateRecordException;
-import com.rays.pro4.Model.SalaryModel;
+import com.rays.pro4.Model.VehicleModel;
 import com.rays.pro4.Util.DataUtility;
 import com.rays.pro4.Util.DataValidator;
 import com.rays.pro4.Util.PropertyReader;
 import com.rays.pro4.Util.ServletUtility;
 
-@WebServlet(name = "SalaryCtl", urlPatterns = { "/ctl/SalaryCtl" })
+@WebServlet(name = "VehicleCtl", urlPatterns = { "/ctl/VehicleCtl" })
 
-public class SalaryCtl extends BaseCtl {
+public class VehicleCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
 	
 		HashMap map1 = new HashMap();
-		map1.put("Riya", "Riya");
-		map1.put("Ankit", "Ankit");
-		map1.put("Pooja", "Pooja");
-		map1.put("Dharam", "Dharam");
+		map1.put("Red", "Red");
+		map1.put("Blue", "Blue");
+		map1.put("Yellow", "Yellow");
+		map1.put("White", "White");
 
 
 		request.setAttribute("map1", map1);
@@ -48,34 +48,31 @@ public class SalaryCtl extends BaseCtl {
 
 		boolean pass = true;
 
-		if (DataValidator.isNull(request.getParameter("employee"))) {
-			request.setAttribute("employee", PropertyReader.getValue("error.require", "employee"));
+		if (DataValidator.isNull(request.getParameter("number"))) {
+			request.setAttribute("number", PropertyReader.getValue("error.require", "number"));
 			pass = false;
 
-		} else if (!DataValidator.isName(request.getParameter("employee"))) {
-			request.setAttribute("employee", "employee name must contains alphabet only");
+		} else if (DataValidator.isTooLong(request.getParameter("number"),15)) {
+			request.setAttribute("number", "number must contain max 15 digit");
 			pass = false;
 		}
-		if (DataValidator.isNull(request.getParameter("status"))) {
-			request.setAttribute("status", PropertyReader.getValue("error.require", "status"));
+		if (DataValidator.isNull(request.getParameter("colour"))) {
+			request.setAttribute("colour", PropertyReader.getValue("error.require", "colour"));
 			pass = false;
 
-		} else if (!DataValidator.isName(request.getParameter("status"))) {
-			request.setAttribute("status", "status must contains alphabet only");
-			pass = false;
-		}
+		} 
 
-		if (DataValidator.isNull(request.getParameter("amount"))) {
-			request.setAttribute("amount", PropertyReader.getValue("error.require", "amount"));
+		if (DataValidator.isNull(request.getParameter("insuranceamount"))) {
+			request.setAttribute("insuranceamount", PropertyReader.getValue("error.require", "insuranceamount"));
 			pass = false;
 		} 
-		else if (DataValidator.isTooLong(request.getParameter("amount"),15)) {
-			request.setAttribute("amount", "amount must contain max 15 digit");
+		else if (DataValidator.isTooLong(request.getParameter("insuranceamount"),15)) {
+			request.setAttribute("insuranceamount", "insuranceamount must contain max 15 digit");
 			pass = false;
 		}
 
-		if (DataValidator.isNull(request.getParameter("date"))) {
-			request.setAttribute("date", PropertyReader.getValue("error.require", "Applied Date"));
+		if (DataValidator.isNull(request.getParameter("purchasedate"))) {
+			request.setAttribute("purchasedate", PropertyReader.getValue("error.require", "purchasedate"));
 			pass = false;
 		}
 		
@@ -86,17 +83,17 @@ public class SalaryCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		SalaryBean bean = new SalaryBean();
+		VehicleBean bean = new VehicleBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 
-		bean.setEmployee(DataUtility.getString(request.getParameter("employee")));
-
-		bean.setStatus(DataUtility.getString(request.getParameter("status")));
-
-		bean.setAmount(DataUtility.getLong(request.getParameter("amount")));
-
-		bean.setDate(DataUtility.getDate(request.getParameter("date")));
+		bean.setNumber(DataUtility.getString(request.getParameter("number")));
+		
+		bean.setPurchaseDate(DataUtility.getDate(request.getParameter("purchasedate")));
+		
+		bean.setInsuranceAmount(DataUtility.getLong(request.getParameter("insuranceamount")));
+		
+		bean.setColour(DataUtility.getString(request.getParameter("colour")));
 
 		return bean;
 
@@ -104,14 +101,14 @@ public class SalaryCtl extends BaseCtl {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Salary ctl do get 1111111");
+		System.out.println("Vehicle ctl do get 1111111");
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		SalaryModel model = new SalaryModel();
+		VehicleModel model = new VehicleModel();
 		long id = DataUtility.getLong(request.getParameter("id"));
 		if (id > 0 || op != null) {
 
-			SalaryBean bean;
+			VehicleBean bean;
 			try {
 				bean = model.findByPK(id)
 ;
@@ -136,22 +133,22 @@ public class SalaryCtl extends BaseCtl {
 
 		System.out.println(">>>><<<<>><<><<><>**********" + id + op);
 
-		SalaryModel model = new SalaryModel();
+		VehicleModel model = new VehicleModel();
 		if (OP_SAVE.equalsIgnoreCase(op) || OP_UPDATE.equalsIgnoreCase(op)) {
-			SalaryBean bean = (SalaryBean) populateBean(request);
+			VehicleBean bean = (VehicleBean) populateBean(request);
 			try {
 				if (id > 0) {
 
 					model.update(bean);
 					ServletUtility.setBean(bean, request);
-					System.out.println(" salary ctl DoPost 222222");
-					ServletUtility.setSuccessMessage("Salary is successfully Updated", request);
+					System.out.println(" Vehicle ctl DoPost 222222");
+					ServletUtility.setSuccessMessage("Vehicle is successfully Updated", request);
 
 				} else {
 					
 						long pk = model.add(bean);
 						ServletUtility.setBean(bean, request);
-						ServletUtility.setSuccessMessage("Salary is successfully Added ", request);
+						ServletUtility.setSuccessMessage("Vehicle is successfully Added ", request);
 				
 					
 				//		bean.setId(pk);
@@ -163,18 +160,18 @@ public class SalaryCtl extends BaseCtl {
 				ServletUtility.handleException(e, request, response);
 				return;
 			} catch (DuplicateRecordException e) {
-				System.out.println(" Salary D post 4444444");
+				System.out.println(" Vehicle D post 4444444");
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Salary exists", request);
+				ServletUtility.setErrorMessage("Vehicle exists", request);
 			}
 		} else if (OP_DELETE.equalsIgnoreCase(op)) {
-			System.out.println(" Salary ctl D p 5555555");
+			System.out.println(" Vehicle ctl D p 5555555");
 
-			SalaryBean bean = (SalaryBean) populateBean(request);
+			VehicleBean bean = (VehicleBean) populateBean(request);
 			try {
 				model.delete(bean);
-				System.out.println(" salary ctl D Post  6666666");
-				ServletUtility.redirect(ORSView.SALARY_CTL, request, response);
+				System.out.println(" Vehicle ctl D Post  6666666");
+				ServletUtility.redirect(ORSView.VEHICLE_CTL, request, response);
 				return;
 			} catch (ApplicationException e) {
 
@@ -183,9 +180,9 @@ public class SalaryCtl extends BaseCtl {
 			}
 
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
-			System.out.println(" salary  ctl Do post 77777");
+			System.out.println(" Vehicle  ctl Do post 77777");
 
-			ServletUtility.redirect(ORSView.SALARY_LIST_CTL, request, response);
+			ServletUtility.redirect(ORSView.VEHICLE_LIST_CTL, request, response);
 			return;
 		}
 
@@ -195,6 +192,6 @@ public class SalaryCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.SALARY_VIEW;
+		return ORSView.VEHICLE_VIEW;
 	}
 }

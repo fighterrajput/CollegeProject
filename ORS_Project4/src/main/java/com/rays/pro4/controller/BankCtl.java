@@ -53,6 +53,9 @@ public class BankCtl extends BaseCtl {
 		} else if (!DataValidator.isName(request.getParameter("BankName"))) {
 			request.setAttribute("BankName", "BankName must contains alphabet only");
 			pass = false;
+		}else if (DataValidator.isTooLong(request.getParameter("BankName"), 20)) {
+			request.setAttribute("BankName", "BankName No must contain max 20 characters");
+			pass = false;
 		}
 
 		if (DataValidator.isNull(request.getParameter("AccountNumber"))) {

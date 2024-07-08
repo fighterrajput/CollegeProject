@@ -1,5 +1,4 @@
-<%@page import="com.rays.pro4.controller.SalaryCtl"%>
-<%@page import="com.rays.pro4.controller.ProductCtl"%>
+<%@page import="com.rays.pro4.controller.WishListCtl"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
 <%@page import="com.rays.pro4.Util.HTMLUtility"%>
@@ -14,7 +13,7 @@
 <script src="<%=ORSView.APP_CONTEXT%>/js/ValidateToInput.js"></script>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16*16" />
-<title>Salary Page</title>
+<title>WishList Page</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,19 +49,16 @@
 	}
 </script>
 <body>
-	<jsp:useBean id="bean" class="com.rays.pro4.Bean.SalaryBean"
+	<jsp:useBean id="bean" class="com.rays.pro4.Bean.WishListBean"
 		scope="request"></jsp:useBean>
 	<%@ include file="Header.jsp"%>
 
 	<center>
 
-		<form action="<%=ORSView.SALARY_CTL%>" method="post">
-	<%
-			
-			HashMap map=	(HashMap)request.getAttribute("map");
-			HashMap map1=	(HashMap)request.getAttribute("map1");
-
-			
+		<form action="<%=ORSView.WISHLIST_CTL%>" method="post">
+			<%
+				HashMap map = (HashMap) request.getAttribute("map");
+				HashMap map1 = (HashMap) request.getAttribute("map1");
 			%>
 
 
@@ -73,13 +69,13 @@
 						if (bean != null && bean.getId() > 0) {
 					%>
 					<tr>
-						<th><font size="5px"> Update Salary </font></th>
+						<th><font size="5px"> Update WishList </font></th>
 					</tr>
 					<%
 						} else {
 					%>
 					<tr>
-						<th><font size="5px"> Add Salary</font></th>
+						<th><font size="5px"> Add WishList</font></th>
 					</tr>
 					<%
 						}
@@ -96,46 +92,27 @@
 
 			<table>
 
-	
-					<th align="left">Employee <span style="color: red">*</span> :
-					</th>
-					<td>
-						<%
-						
-							String hlist1 = HTMLUtility.getList("employee", String.valueOf(bean.getEmployee()), map1);
-					%>
-					<%=hlist1%>
-					</td>
-					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("employee", request)%></font></td>
-				</tr>
 
-				<tr>
-					<th style="padding: 3px"></th>
-				</tr>
-				<tr>
-				<tr>
-					<th align="left">Status<span style="color: red">*</span> :
-					</th>
-					<td>
-						<%
-
-
-							String hlist = HTMLUtility.getList("status", String.valueOf(bean.getStatus()), map);
-					%>
-					<%=hlist%>
-					</td>
-					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("status", request)%></font></td>
+				<th align="left">Product <span style="color: red">*</span> :
+				</th>
+				<td>
+					<%
+						String hlist1 = HTMLUtility.getList("product", String.valueOf(bean.getProduct()), map1);
+					%> <%=hlist1%>
+				</td>
+				<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("product", request)%></font></td>
 				</tr>
 
 				<tr>
 					<th style="padding: 3px"></th>
 				</tr>
 				
-					<tr>
-					<th align="left">Applied Date<span style="color: red">*</span> :
+
+				<tr>
+					<th align="left">Date<span style="color: red">*</span> :
 					</th>
-					<td><input type="text" name="date"
-						placeholder="Enter Date" size="25" readonly="readonly" id="udatee"
+					<td><input type="text" name="date" placeholder="Enter Date"
+						size="25" readonly="readonly" id="udatee"
 						value="<%=DataUtility.getDateString(bean.getDate())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("date", request)%></font></td>
 				</tr>
@@ -144,44 +121,52 @@
 					<th style="padding: 3px"></th>
 				</tr>
 
-<tr>
-					<th align="left">Amount: <span style="color: red">*</span>
+				<tr>
+
+
+					<th align="left">Username: <span style="color: red">*</span>
 
 					</th>
-					<td><input type="text" name="amount" maxlength="16"
-						placeholder="Enter amount" oninput="validateNumericInput(this)"
-						size="25" 
-						value="<%=(DataUtility.getStringData(bean.getAmount()).equals("0") ? ""
-					: DataUtility.getStringData(bean.getAmount()))%>"></td>
-					<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("amount", request)%></font></td>
+					<td><input type="text" name="username" maxlength="16"
+						placeholder="Enter Username" size="25" onkeypress="return ValidateInput(event)"
+						value="<%=DataUtility.getStringData(bean.getUserName())%>"></td>
+					<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("username", request)%></font></td>
 
 				</tr>
-			
-
-				<%
-					if (bean.getId() > 0) {
-				%>
-
-				&nbsp;
-				<td align="right" colspan="2">&nbsp; &emsp; <input
-					type="submit" name="operation" value="<%=SalaryCtl.OP_UPDATE%>">
-					&nbsp; &nbsp; <input type="submit" name="operation"
-					value="<%=SalaryCtl.OP_CANCEL%>"></td>
-
-				<%
-					} else {
-				%>
-
-				&nbsp;&nbsp;
-				<td align="right" scolspan="2">&nbsp; &emsp; <input
-					type="submit" name="operation" value="<%=SalaryCtl.OP_SAVE%>">
-					&nbsp; &nbsp; <input type="submit" name="operation"
-					value="<%=SalaryCtl.OP_RESET%>"></td>
-
-				<%
-					}
-				%>
+				<tr>
+					<th style="padding: 3px"></th>
 				</tr>
+
+				<th align="left">Remark: <span style="color: red">*</span>
+
+				</th>
+				<td><input type="text" name="remark" maxlength="21"
+					placeholder="Enter Remark" onkeypress="return ValidateInput(event)"
+					size="25" value="<%=DataUtility.getStringData(bean.getRemark())%>"></td>
+				<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("remark", request)%></font></td>
+
+				</tr>
+
+
+			<%
+	if(bean != null && bean.getId() > 0){
+	%>
+		<td colspan="2">
+		 &emsp; &emsp;  &emsp;
+		<input type="submit" name="operation" value="<%=WishListCtl.OP_UPDATE%>">
+		 &nbsp;  &nbsp;
+		<input type="submit" name="operation" value="<%=WishListCtl.OP_CANCEL%>">
+		</td>
+		<%} else { %>
+		
+		<td colspan="2">
+		 &nbsp;  &emsp;
+		<input type="submit" name="operation" value="<%=WishListCtl.OP_SAVE%>">
+		 &nbsp;  &nbsp;
+		<input type="submit" name="operation" value="<%=WishListCtl.OP_RESET%>">
+		</td>
+		<% } %>
+	</tr>
 			</table>
 		</form>
 	</center>

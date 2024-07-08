@@ -58,6 +58,20 @@ public class DataValidator {
 		}
 	} 
 	
+	public static boolean isToLong(Object value, int maxLength) {
+	    if (value instanceof String) {
+	        String val = (String) value;
+	        return val.length() > maxLength;
+	    } else if (value instanceof Long) {
+	        Long val = (Long) value;
+	        return val > maxLength;
+	    } else {
+	        return false;
+	    }
+	}
+
+	
+	
 
 	  public static boolean isEmail(String val) {
 		  

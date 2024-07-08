@@ -1,5 +1,4 @@
-<%@page import="com.rays.pro4.controller.SalaryCtl"%>
-<%@page import="com.rays.pro4.controller.ProductCtl"%>
+<%@page import="com.rays.pro4.controller.VehicleCtl"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
 <%@page import="com.rays.pro4.Util.HTMLUtility"%>
@@ -14,7 +13,7 @@
 <script src="<%=ORSView.APP_CONTEXT%>/js/ValidateToInput.js"></script>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16*16" />
-<title>Salary Page</title>
+<title>Vehicle Page</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,13 +49,13 @@
 	}
 </script>
 <body>
-	<jsp:useBean id="bean" class="com.rays.pro4.Bean.SalaryBean"
+	<jsp:useBean id="bean" class="com.rays.pro4.Bean.VehicleBean"
 		scope="request"></jsp:useBean>
 	<%@ include file="Header.jsp"%>
 
 	<center>
 
-		<form action="<%=ORSView.SALARY_CTL%>" method="post">
+		<form action="<%=ORSView.VEHICLE_CTL%>" method="post">
 	<%
 			
 			HashMap map=	(HashMap)request.getAttribute("map");
@@ -73,13 +72,13 @@
 						if (bean != null && bean.getId() > 0) {
 					%>
 					<tr>
-						<th><font size="5px"> Update Salary </font></th>
+						<th><font size="5px"> Update Vehicle </font></th>
 					</tr>
 					<%
 						} else {
 					%>
 					<tr>
-						<th><font size="5px"> Add Salary</font></th>
+						<th><font size="5px"> Add Vehicle </font></th>
 					</tr>
 					<%
 						}
@@ -97,47 +96,35 @@
 			<table>
 
 	
-					<th align="left">Employee <span style="color: red">*</span> :
+					<th align="left">Colour <span style="color: red">*</span> :
 					</th>
 					<td>
 						<%
 						
-							String hlist1 = HTMLUtility.getList("employee", String.valueOf(bean.getEmployee()), map1);
+							String hlist1 = HTMLUtility.getList("colour", String.valueOf(bean.getColour()), map1);
 					%>
 					<%=hlist1%>
 					</td>
-					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("employee", request)%></font></td>
-				</tr>
-
-				<tr>
-					<th style="padding: 3px"></th>
-				</tr>
-				<tr>
-				<tr>
-					<th align="left">Status<span style="color: red">*</span> :
-					</th>
-					<td>
-						<%
-
-
-							String hlist = HTMLUtility.getList("status", String.valueOf(bean.getStatus()), map);
-					%>
-					<%=hlist%>
-					</td>
-					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("status", request)%></font></td>
+					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("colour", request)%></font></td>
 				</tr>
 
 				<tr>
 					<th style="padding: 3px"></th>
 				</tr>
 				
+				
+
+				<tr>
+					<th style="padding: 3px"></th>
+				</tr>
+				
 					<tr>
-					<th align="left">Applied Date<span style="color: red">*</span> :
+					<th align="left">Purchase Date :<span style="color: red">*</span> :
 					</th>
-					<td><input type="text" name="date"
+					<td><input type="text" name="purchasedate"
 						placeholder="Enter Date" size="25" readonly="readonly" id="udatee"
-						value="<%=DataUtility.getDateString(bean.getDate())%>"></td>
-					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("date", request)%></font></td>
+						value="<%=DataUtility.getDateString(bean.getPurchaseDate())%>"></td>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("purchasedate", request)%></font></td>
 				</tr>
 
 				<tr>
@@ -145,15 +132,27 @@
 				</tr>
 
 <tr>
-					<th align="left">Amount: <span style="color: red">*</span>
+					<th align="left">Insurance Amount: <span style="color: red">*</span>
 
 					</th>
-					<td><input type="text" name="amount" maxlength="16"
-						placeholder="Enter amount" oninput="validateNumericInput(this)"
+					<td><input type="text" name="insuranceamount" maxlength="16"
+						placeholder="Enter Insurance Amount" oninput="validateNumericInput(this)"
 						size="25" 
-						value="<%=(DataUtility.getStringData(bean.getAmount()).equals("0") ? ""
-					: DataUtility.getStringData(bean.getAmount()))%>"></td>
-					<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("amount", request)%></font></td>
+						value="<%=(DataUtility.getStringData(bean.getInsuranceAmount()).equals("0") ? ""
+					: DataUtility.getStringData(bean.getInsuranceAmount()))%>"></td>
+					<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("insuranceamount", request)%></font></td>
+
+				</tr>
+				<tr>
+
+
+					<th align="left">Number : <span style="color: red">*</span>
+
+					</th>
+					<td><input type="text" name="number" maxlength="16"
+						placeholder="Enter Number" size="25" 
+						value="<%=DataUtility.getStringData(bean.getNumber())%>"></td>
+					<td style="position: fixed"><font color="red"><%=ServletUtility.getErrorMessage("number", request)%></font></td>
 
 				</tr>
 			
@@ -164,9 +163,9 @@
 
 				&nbsp;
 				<td align="right" colspan="2">&nbsp; &emsp; <input
-					type="submit" name="operation" value="<%=SalaryCtl.OP_UPDATE%>">
+					type="submit" name="operation" value="<%=VehicleCtl.OP_UPDATE%>">
 					&nbsp; &nbsp; <input type="submit" name="operation"
-					value="<%=SalaryCtl.OP_CANCEL%>"></td>
+					value="<%=VehicleCtl.OP_CANCEL%>"></td>
 
 				<%
 					} else {
@@ -174,9 +173,9 @@
 
 				&nbsp;&nbsp;
 				<td align="right" scolspan="2">&nbsp; &emsp; <input
-					type="submit" name="operation" value="<%=SalaryCtl.OP_SAVE%>">
+					type="submit" name="operation" value="<%=VehicleCtl.OP_SAVE%>">
 					&nbsp; &nbsp; <input type="submit" name="operation"
-					value="<%=SalaryCtl.OP_RESET%>"></td>
+					value="<%=VehicleCtl.OP_RESET%>"></td>
 
 				<%
 					}

@@ -121,7 +121,7 @@
 				<th align="left">Bank Name: <span style="color: red">*</span>
 
 				</th>
-				<td><input type="text" name="BankName"
+				<td><input type="text" name="BankName" maxlength="21"
 					placeholder="Enter Bank Name"
 					onkeypress="return ValidateInput(event)" size="25"
 					value="<%=DataUtility.getStringData(bean.getBankName())%>"></td>
